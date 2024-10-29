@@ -12,7 +12,35 @@
 <body>
     
     <div id="app">
-        <h1>{{ intro }}</h1>
+        <div v-for="(character, index) in characters" :key="index">
+            <div>
+                Name: {{ character.name }}
+            </div>
+            <div>
+                Level: {{ character.level }}
+            </div>
+            <div>
+                Stamina: {{ character.stamina }}
+            </div>
+            <div>
+                Strength: {{ character.strength }}
+            </div>
+            <div>
+                Strength: {{ character.strength }}
+            </div>
+            <div>
+                Intellect: {{character.intellect}}
+            </div>
+            <div>
+                Spirit: {{character.spirit}}
+            </div>
+            <div>
+                Agility: {{character.agility}}
+            </div>
+
+
+        </div>
+        
     </div>
     <!-- Import Javascript -->
     <script src="./js/main.js"></script>

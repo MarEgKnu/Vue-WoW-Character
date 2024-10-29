@@ -3,7 +3,17 @@ const app = Vue.createApp({
     data() {
 
         return {
-            intro: "Welcome to my vue template"
+            characters: [
+                {
+                    name: "Unknown",
+                    level: 0,
+                    stamina: 0,
+                    strength: 0,
+                    intellect: 0,
+                    spirit: 0,
+                    agility: 0,
+                }
+            ]
         }
 
     },
@@ -22,3 +32,9 @@ const app = Vue.createApp({
     }
 
 })
+
+
+
+
+
+
