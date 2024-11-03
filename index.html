@@ -12,12 +12,52 @@
 <body>
     
     <div id="app">
+        <div>
+            <!--<form>-->
+                <label for="nameInput">Name</label>
+                <input type="text" id="nameInput" v-model="characterInput.name">
+
+                <label for="levelInput">Level</label>
+                <input type="number" step="1" id="levelInput" v-model="characterInput.level">
+
+                <label for="classInput">Class</label>
+                <select id="classInput" v-model="characterInput.class">
+                    <option selected value="Druid">Warrior</option>
+                    <option value="Hunter">Warlock</option>
+                    <option value="Mage">Mage</option>
+                    <option value="Paladin">Paladin</option>
+                    <option value="Priest">Priest</option>
+                    <option value="Rogue">Rogue</option>
+                    <option value="Shaman">Shaman</option>
+                    <option value="Warlock">Warlock</option>
+                    <option value="Warrior">Warrior</option>
+                    <option value="DeathKnight">Death Knight</option>
+                </select>
+
+                <label for="staminaInput">Stamina</label>
+                <input type="number" step="1" id="staminaInput" v-model="characterInput.stamina">
+
+                <label for="strengthInput">Strength</label>
+                <input type="number" step="1" id="strengthInput" v-model="characterInput.strength">
+
+                <label for="intellectInput">Intellect</label>
+                <input type="number" step="1" id="intellectInput" v-model="characterInput.intellect">
+
+                <label for="spiritInput">Spirit</label>
+                <input type="number" step="1" id="spiritInput" v-model="characterInput.spirit">
+
+                <label for="agilityInput">Agility</label>
+                <input type="number" step="1" id="agilityInput" v-model="characterInput.agility">
+                <br><br>
+                
+                <button @click="addCharacter">Add Character</button>
+
+             <!--<form>-->
+                       
+        </div>
         <div v-for="(character, index) in characters" :key="index">
             <div>
-                Name: {{ character.name }}
-            </div>
-            <div>
-                Level: {{ character.level }}
+                {{characterSummary(character)}}
             </div>
             <div>
                 Stamina: {{ character.stamina }}
@@ -36,9 +76,7 @@
             </div>
             <div>
                 Agility: {{character.agility}}
-            </div>
-
-
+            </div>          
         </div>
         
     </div>
