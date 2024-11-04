@@ -1,3 +1,5 @@
+
+
 const app = Vue.createApp({
 
     data() {
@@ -6,6 +8,7 @@ const app = Vue.createApp({
             characters: [
                 {
                     name: "Unknown",
+                    race: "Unknown",
                     class: "Unknown",
                     level: 1,
                     stamina: 1,
@@ -15,11 +18,13 @@ const app = Vue.createApp({
                     agility: 1,
                     critRating: 0,
                     totalHealth: 1,
+                    totalMana: 0,
 
                 },
             ],
             characterInput: {
                 name: "Unknown",
+                race: "NightElf",
                 class: "Druid",
                 level: 80,
                 stamina: 1,
@@ -33,6 +38,53 @@ const app = Vue.createApp({
             },
             maxLevel: 80,
             minLevel: 1,
+            races: {
+                "Gnome": {
+                    allowedClasses: (
+                        ["DeathKnight", "Mage", "Rogue", "Warlock", "Warrior"]
+                    )
+                },
+                "Human": {
+                    allowedClasses: (
+                        ["DeathKnight", "Mage", "Paladin", "Priest", "Rogue", "Warlock", "Warrior"]
+                    )
+                },
+                "NightElf": {
+                    allowedClasses: (
+                        ["DeathKnight", "Druid", "Hunter", "Priest", "Rogue", "Warrior"]
+                    )
+                },
+                "Draenei": {
+                    allowedClasses: new Set(
+                        ["DeathKnight", "Hunter", "Mage", "Paladin", "Priest", "Shaman", "Warrior"]
+                    )
+                },
+                "Orc": {
+                    allowedClasses: (
+                        ["DeathKnight", "Hunter", "Rogue", "Warlock", "Shaman", "Warrior"]
+                    )
+                },
+                "Undead": {
+                    allowedClasses: (
+                        ["DeathKnight", "Mage", "Rogue", "Warlock", "Priest", "Warrior"]
+                    )
+                },
+                "Tauren": {
+                    allowedClasses: (
+                        ["DeathKnight", "Druid", "Hunter", "Shaman", "Warrior"]
+                    )
+                },
+                "Troll": {
+                    allowedClasses: (
+                       [ "DeathKnight", "Hunter", "Mage", "Priest", "Rogue", "Shaman", "Warrior"]
+                    )
+                },
+                "BloodElf": {
+                    allowedClasses: (
+                        ["DeathKnight", "Hunter", "Mage", "Paladin", "Priest", "Rogue", "Warlock"]
+                    )
+                }
+            },
             classes: {
                 "Warrior": {
                     baseHealth: 8121,
@@ -99,13 +151,18 @@ const app = Vue.createApp({
                     intellect: this.characterInput.intellect,
                     spirit: this.characterInput.spirit,
                     agility: this.characterInput.agility,
-                    totalHealth: this.calculateTotalHealth(this.characterInput)
+                    critRating: this.characterInput.critRating,
+                    totalHealth: this.calculateTotalHealth(this.characterInput),
+                    totalMana: this.calculateTotalMana(this.characterInput)
                 })
             }
             
         },
         calculateTotalHealth(character) {
-            return this.classes[character.class].baseHealth + (character.stamina * 10)
+            return this.classes[character.class].baseHealth + ( Math.min(20, character.stamina) + 10*(character.stamina - Math.min(20, character.stamina) ) )
+        },
+        calculateTotalMana(character) {
+            return this.classes[character.class].baseMana + ( Math.min(20, character.intellect) + 15*(character.intellect - Math.min(20, character.intellect) ) )
         },
         validateCharacterInput() {
             if (!Number.isInteger(this.characterInput.level) || this.characterInput.level > this.maxLevel || this.characterInput.level < this.minLevel) {
@@ -137,6 +194,30 @@ const app = Vue.createApp({
                 return false
             }
             return true
+        },
+        setValidClassesForRace() {
+            let classSelector = document.getElementById("classInput")
+            this.removeOptions(classSelector)
+            for (const value of this.races[this.characterInput.race].allowedClasses) {
+                classSelector.options.add(
+                    new Option(value, value, false)
+                )
+            }
+        },
+        populateRaceSelection() {
+            Object.keys(this.races).forEach(function(key) {
+
+                document.getElementById("raceInput").options.add(
+                    new Option(key, key, false)
+                )
+              
+              })
+        },
+        removeOptions(selectElement) {
+            var i, L = selectElement.options.length - 1;
+            for(i = L; i >= 0; i--) {
+                selectElement.remove(i);
+            }
         }
         
     
@@ -147,6 +228,9 @@ const app = Vue.createApp({
             return nextId
         },
         
+    },
+    mounted: function(){
+        this.populateRaceSelection()
     }
 
 })

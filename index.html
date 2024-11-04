@@ -22,18 +22,19 @@
                 <label for="levelInput">Level</label>
                 <input type="number" step="1" id="levelInput" v-model="characterInput.level">
 
+                <script>
+                    populateRaceSelection()
+                </script>
+                <label for="raceInput">Race</label>
+                <select id="raceInput" v-model="characterInput.race" @change="setValidClassesForRace">
+
+                </select>
+
+
+
                 <label for="classInput">Class</label>
                 <select id="classInput" v-model="characterInput.class">
-                    <option selected value="Druid">Druid</option>
-                    <option value="Hunter">Hunter</option>
-                    <option value="Mage">Mage</option>
-                    <option value="Paladin">Paladin</option>
-                    <option value="Priest">Priest</option>
-                    <option value="Rogue">Rogue</option>
-                    <option value="Shaman">Shaman</option>
-                    <option value="Warlock">Warlock</option>
-                    <option value="Warrior">Warrior</option>
-                    <option value="DeathKnight">Death Knight</option>
+
                 </select>
 
                 <label for="staminaInput">Stamina</label>
@@ -58,11 +59,8 @@
                        
         </div>
         <div v-for="(character, index) in characters" :key="index">
-            <script>document.getElementsByTagName("button")[0].setAttribute("data-target", )</script>
-            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#charInfo-{% index %}" aria-expanded="false" aria-controls="charInfo-{% index %}">
-                {{characterSummary(character)}}
-            </button>
-            <div class="collapse" id="charInfo-{% index %}">
+            <details>
+                <summary>{{characterSummary(character)}}</summary>
                 <div>
                     Stamina: {{ character.stamina }}
                 </div>
@@ -87,7 +85,10 @@
                 <div>
                     Total Health: {{character.totalHealth}}
                 </div>    
-            </div>
+                <div>
+                    Total Mana: {{character.totalMana}}
+                </div>   
+            </details>
                  
         </div>
         
