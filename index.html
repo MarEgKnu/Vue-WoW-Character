@@ -51,6 +51,13 @@
 
                 <label for="agilityInput">Agility</label>
                 <input type="number" step="1" id="agilityInput" v-model="characterInput.agility">
+
+                <label for="spellPowerInput">Spellpower</label>
+                <input type="number" step="1" id="spellPowerInput" v-model="characterInput.spellPower">
+
+                <label for="critRatingInput">Crit Rating</label>
+                <input type="number" step="1" id="critRatingInput" v-model="characterInput.critRating">
+
                 <br><br>
                 
                 <button @click="addCharacter">Add Character</button>
@@ -79,6 +86,9 @@
                 <div>
                     Agility: {{character.agility}}
                 </div>     
+                <div>
+                    Spellpower: {{character.spellPower}}
+                </div>   
                 <div>
                     Crit Rating: {{character.critRating}}
                 </div>     

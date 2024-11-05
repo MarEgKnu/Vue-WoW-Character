@@ -16,6 +16,7 @@ const app = Vue.createApp({
                     intellect: 1,
                     spirit: 1,
                     agility: 1,
+                    spellPower: 0,
                     critRating: 0,
                     totalHealth: 1,
                     totalMana: 0,
@@ -32,6 +33,7 @@ const app = Vue.createApp({
                 intellect: 1,
                 spirit: 1,
                 agility: 1,
+                spellPower:0 ,
                 critRating: 0,
                 
 
@@ -89,42 +91,94 @@ const app = Vue.createApp({
                 "Warrior": {
                     baseHealth: 8121,
                     baseMana: NaN,
+                    baseAgility: 189,
+                    baseIntellect: 151,
+                    baseStrength: 309,
+                    baseStamina: 189,
+                    baseSpirit: 144,
                 },
                 "Warlock": {
                     baseHealth: 7164,
                     baseMana: 3856,
+                    baseAgility: 273,
+                    baseIntellect: 221,
+                    baseStrength: 117,
+                    baseStamina:189,
+                    baseSpirit: 245,
                 },
                 "Druid": {
                     baseHealth: 7417,
                     baseMana: 3496,
+                    baseAgility: 273,
+                    baseIntellect: 211,
+                    baseStrength: 133,
+                    baseStamina: 189,
+                    baseSpirit: 166,
                 },
                 "Hunter": {
                     baseHealth: 7324,
                     baseMana: 5046,
+                    baseAgility: 273,
+                    baseIntellect: 181,
+                    baseStrength: 188,
+                    baseStamina:189,
+                    baseSpirit: 151,
                 },
                 "Mage": {
                     baseHealth: 6963,
                     baseMana: 3268,
+                    baseAgility: 189,
+                    baseIntellect:221,
+                    baseStrength: 138,
+                    baseStamina: 189,
+                    baseSpirit: 245,
                 },
                 "Paladin": {
                     baseHealth: 6934,
                     baseMana: 4394,
+                    baseAgility: 97,
+                    baseIntellect: 221,
+                    baseStrength: 309,
+                    baseStamina: 189,
+                    baseSpirit: 166
                 },
                 "Priest": {
                     baseHealth: 6960,
                     baseMana: 3863,
+                    baseAgility: 227,
+                    baseIntellect: 221,
+                    baseStrength: 179,
+                    baseStamina: 189,
+                    baseSpirit: 166,
+
                 },
                 "Rogue": {
                     baseHealth: 7604,
                     baseMana: NaN,
+                    baseAgility: 273,
+                    baseIntellect: 151,
+                    baseStrength: 256,
+                    baseStamina: 189,
+                    baseSpirit: 113,
+
                 },
                 "Shaman": {
                     baseHealth: 1,
                     baseMana: 4396,
+                    baseAgility: 273,
+                    baseIntellect: 221,
+                    baseStrength: 133,
+                    baseStamina: 189,
+                    baseSpirit: 166,
                 },
                 "DeathKnight": {
                     baseHealth: 8121,
                     baseMana: NaN,
+                    baseAgility: 228,
+                    baseIntellect: 121,
+                    baseStrength: 309,
+                    baseStamina: 189,
+                    baseSpirit: 136,
                 },
 
             },
@@ -151,6 +205,7 @@ const app = Vue.createApp({
                     intellect: this.characterInput.intellect,
                     spirit: this.characterInput.spirit,
                     agility: this.characterInput.agility,
+                    spellPower: this.characterInput.spellPower,
                     critRating: this.characterInput.critRating,
                     totalHealth: this.calculateTotalHealth(this.characterInput),
                     totalMana: this.calculateTotalMana(this.characterInput)
@@ -166,27 +221,27 @@ const app = Vue.createApp({
         },
         validateCharacterInput() {
             if (!Number.isInteger(this.characterInput.level) || this.characterInput.level > this.maxLevel || this.characterInput.level < this.minLevel) {
-                window.alert("Invalid level value")
+                window.alert("Invalid level value, must be between min level of " + this.minLevel, + " and max level of " + this.maxLevel )
                 return false
             }
-            else if (!Number.isInteger(this.characterInput.stamina) || this.characterInput.stamina < 1) {
-                window.alert("Invalid stamina value")
+            else if (!Number.isInteger(this.characterInput.stamina) || this.characterInput.stamina < this.classes[this.characterInput.class].baseStamina) {
+                window.alert("Invalid stamina value, must be bigger or equal to base stamina of " + this.classes[this.characterInput.class].baseStamina)
                 return false
             }
-            else if (!Number.isInteger(this.characterInput.strength) || this.characterInput.strength < 1) {
-                window.alert("Invalid strength value")
+            else if (!Number.isInteger(this.characterInput.strength) || this.characterInput.strength < this.classes[this.characterInput.class].baseStrength) {
+                window.alert("Invalid strength value, must be bigger or equal to base strength of " + this.classes[this.characterInput.class].baseStrength)
                 return false
             }
-            else if (!Number.isInteger(this.characterInput.intellect) || this.characterInput.intellect < 1) {
-                window.alert("Invalid intellect value")
+            else if (!Number.isInteger(this.characterInput.intellect) || this.characterInput.intellect < this.classes[this.characterInput.class].baseIntellect) {
+                window.alert("Invalid intellect value, must be bigger or equal to base intellect of " + this.classes[this.characterInput.class].baseIntellect)
                 return false
             }
-            else if (!Number.isInteger(this.characterInput.spirit) || this.characterInput.spirit < 1) {
-                window.alert("Invalid spirit value")
+            else if (!Number.isInteger(this.characterInput.spirit) || this.characterInput.spirit < this.classes[this.characterInput.class].baseSpirit) {
+                window.alert("Invalid spirit value, must be bigger or equal to base spirit of " + this.classes[this.characterInput.class].baseSpirit)
                 return false
             }
-            else if (!Number.isInteger(this.characterInput.agility) || this.characterInput.agility < 1) {
-                window.alert("Invalid agility value")
+            else if (!Number.isInteger(this.characterInput.agility) || this.characterInput.agility < this.classes[this.characterInput.class].baseAgility) {
+                window.alert("Invalid agility value, must be bigger or equal to base agility of " + this.classes[this.characterInput.class].baseAgility)
                 return false
             }
             else if (!Number.isInteger(this.characterInput.critRating) || this.characterInput.critRating < 0) {
