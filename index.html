@@ -27,12 +27,9 @@
                 <label for="levelInput">Level</label>
                 <input type="number" step="1" id="levelInput" v-model="characterInput.level">
 
-                <script>
-                    populateRaceSelection()
-                </script>
                 <label for="raceInput">Race</label>
                 <select id="raceInput" v-model="characterInput.race" @change="setValidClassesForRace">
-
+                <option v-for="(race, index) in races" :key="index">{{race.name}}</option>
                 </select>
 
 

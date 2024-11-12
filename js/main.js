@@ -2,6 +2,10 @@
 
 const baseUrl = "https://localhost:7220/api/Characters"
 
+const raceUrl = "https://localhost:7220/api/Races"
+
+const classUrl = "https://localhost:7220/api/Classes"
+
 const app = Vue.createApp({
 
     data() {
@@ -44,9 +48,7 @@ const app = Vue.createApp({
             },
             maxLevel: 80,
             minLevel: 1,
-            races: {
-                
-            },
+            races: {},
             classes: {
                 "Warrior": {
                     baseHealth: 8121,
@@ -262,7 +264,20 @@ const app = Vue.createApp({
             return "Error: " + this.errorObject.message +  ", " + this.errorObject.response.data
         },
         getRacesAxios() {
-            axios.get(baseUrl)
+            axios.get(raceUrl)
+            .then(response => {
+                console.log(response.status)
+                this.races = response.data
+                
+            })
+            .catch(error = (ex) => {
+                console.log(ex.message)
+                this.error = true
+                this.errorObject = ex
+            })
+        },
+        getClassesAxios() {
+            axios.get(classUrl)
             .then(response => {
                 console.log(response.status)
                 this.races = response.data
