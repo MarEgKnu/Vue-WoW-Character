@@ -45,51 +45,7 @@ const app = Vue.createApp({
             maxLevel: 80,
             minLevel: 1,
             races: {
-                "Gnome": {
-                    allowedClasses: (
-                        ["DeathKnight", "Mage", "Rogue", "Warlock", "Warrior"]
-                    )
-                },
-                "Human": {
-                    allowedClasses: (
-                        ["DeathKnight", "Mage", "Paladin", "Priest", "Rogue", "Warlock", "Warrior"]
-                    )
-                },
-                "NightElf": {
-                    allowedClasses: (
-                        ["DeathKnight", "Druid", "Hunter", "Priest", "Rogue", "Warrior"]
-                    )
-                },
-                "Draenei": {
-                    allowedClasses: new Set(
-                        ["DeathKnight", "Hunter", "Mage", "Paladin", "Priest", "Shaman", "Warrior"]
-                    )
-                },
-                "Orc": {
-                    allowedClasses: (
-                        ["DeathKnight", "Hunter", "Rogue", "Warlock", "Shaman", "Warrior"]
-                    )
-                },
-                "Undead": {
-                    allowedClasses: (
-                        ["DeathKnight", "Mage", "Rogue", "Warlock", "Priest", "Warrior"]
-                    )
-                },
-                "Tauren": {
-                    allowedClasses: (
-                        ["DeathKnight", "Druid", "Hunter", "Shaman", "Warrior"]
-                    )
-                },
-                "Troll": {
-                    allowedClasses: (
-                       [ "DeathKnight", "Hunter", "Mage", "Priest", "Rogue", "Shaman", "Warrior"]
-                    )
-                },
-                "BloodElf": {
-                    allowedClasses: (
-                        ["DeathKnight", "Hunter", "Mage", "Paladin", "Priest", "Rogue", "Warlock"]
-                    )
-                }
+                
             },
             classes: {
                 "Warrior": {
@@ -330,7 +286,7 @@ const app = Vue.createApp({
         
     },
     mounted: function(){
-        this.populateRaceSelection()
+        this.getRacesAxios()
     }
 
 })
