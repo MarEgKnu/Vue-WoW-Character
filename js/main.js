@@ -1,10 +1,14 @@
 
 
+const baseUrl = "https://localhost:7220/api/Characters"
+
 const app = Vue.createApp({
 
     data() {
 
         return {
+            error: false,
+            errorObject: {},
             characters: [
                 {
                     name: "Unknown",
@@ -28,11 +32,11 @@ const app = Vue.createApp({
                 race: "NightElf",
                 class: "Druid",
                 level: 80,
-                stamina: 1,
-                strength: 1,
-                intellect: 1,
-                spirit: 1,
-                agility: 1,
+                stamina: 100,
+                strength: 100,
+                intellect: 100,
+                spirit: 100,
+                agility: 100,
                 spellPower:0 ,
                 critRating: 0,
                 
@@ -192,7 +196,31 @@ const app = Vue.createApp({
 
     methods: {
         characterSummary(character) {
-            return character.name + ": " + "Level " + character.level + " " + character.class
+            return character.name + ": " + "Level " + character.level + " " + character.race.name + " " + character.class.name
+        },
+        getCharactersAxios() {
+            axios.get(baseUrl)
+            .then(response => {
+                console.log(response.status)
+                this.characters = response.data
+                
+            })
+            .catch(error = (ex) => {
+                console.log(ex.message)
+                this.error = true
+                this.errorObject = ex
+            })
+        },
+        postCharactersAxios() {
+            axios.post(baseUrl, this.characterInput)
+            .then(response => {
+                console.log(response.status)
+            })
+            .catch(error = (ex) => {
+                console.log(ex.message)
+                this.error = true
+                this.errorObject = ex
+            })
         },
         addCharacter() {
             if (this.validateCharacterInput()) {
@@ -273,7 +301,23 @@ const app = Vue.createApp({
             for(i = L; i >= 0; i--) {
                 selectElement.remove(i);
             }
-        }
+        },
+        errorMessage() {
+            return "Error: " + this.errorObject.message +  ", " + this.errorObject.response.data
+        },
+        getRacesAxios() {
+            axios.get(baseUrl)
+            .then(response => {
+                console.log(response.status)
+                this.races = response.data
+                
+            })
+            .catch(error = (ex) => {
+                console.log(ex.message)
+                this.error = true
+                this.errorObject = ex
+            })
+        },
         
     
     },
@@ -282,6 +326,7 @@ const app = Vue.createApp({
             this.nextId = this.nextId + 1;
             return nextId
         },
+        
         
     },
     mounted: function(){

@@ -6,6 +6,8 @@
     <title>Vue Template</title>
     <!-- Import Vue -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!-- Import Axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <!-- Import Styles -->
     <link rel="stylesheet" href="./css/styles.css">
     <!-- Import Bootstrap -->
@@ -14,6 +16,9 @@
 <body>
     
     <div id="app">
+        <div v-if="error" style="color: red;">
+            <p>{{errorMessage() }}</p>
+        </div>
         <div>
             <!--<form>-->
                 <label for="nameInput">Name</label>
@@ -60,11 +65,14 @@
 
                 <br><br>
                 
-                <button @click="addCharacter">Add Character</button>
+                <button @click="postCharactersAxios">Add Character</button>
+
+                <button @click="getCharactersAxios">Show Characters</button>
 
              <!--<form>-->
                        
         </div>
+        
         <div v-for="(character, index) in characters" :key="index">
             <details>
                 <summary>{{characterSummary(character)}}</summary>
